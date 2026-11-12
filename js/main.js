@@ -1,408 +1,163 @@
-/* ==========================================================================
-   MAIN JAVASCRIPT LOGIC
-   Typing effect, Project Filters, Modal Preview, Copy Email, 3D Tilt, ScrollSpy
-   ========================================================================== */
-
 document.addEventListener('DOMContentLoaded', () => {
 
-  // --------------------------------------------------------------------------
-  // 1. Mobile Menu Toggle
-  // --------------------------------------------------------------------------
-  const navToggle = document.getElementById('nav-toggle');
-  const navMenu = document.getElementById('nav-menu');
-  const navLinks = document.querySelectorAll('.nav-link');
+  // Nom du hero : les lettres se déchiffrent une fois au chargement
+  const lines = document.querySelectorAll('#hero-name .line');
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const GLYPHS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789#$%&@';
 
-  if (navToggle && navMenu) {
-    navToggle.addEventListener('click', () => {
-      navMenu.classList.toggle('active');
-      const icon = navToggle.querySelector('i');
-      if (icon) {
-        icon.classList.toggle('ri-menu-4-line');
-        icon.classList.toggle('ri-close-line');
-      }
+  lines.forEach(line => {
+    const text = line.dataset.text;
+    line.setAttribute('aria-hidden', 'true');
+    line.innerHTML = '';
+    [...text].forEach(c => {
+      const s = document.createElement('span');
+      s.className = 'ch';
+      s.textContent = c;
+      line.appendChild(s);
     });
+  });
 
-    navLinks.forEach(link => {
-      link.addEventListener('click', () => {
-        navMenu.classList.remove('active');
-        const icon = navToggle.querySelector('i');
-        if (icon) {
-          icon.classList.add('ri-menu-4-line');
-          icon.classList.remove('ri-close-line');
-        }
+  function decrypt() {
+    let delay = 0;
+    lines.forEach(line => {
+      line.querySelectorAll('.ch').forEach(span => {
+        const final = span.textContent;
+        span.style.width = span.getBoundingClientRect().width + 'px';
+        const start = performance.now() + delay;
+        const duration = 500 + delay * 0.6;
+        delay += 70;
+        span.classList.add('scrambling');
+        span.textContent = GLYPHS[Math.floor(Math.random() * GLYPHS.length)];
+        (function tick(now) {
+          if (now < start) return requestAnimationFrame(tick);
+          if (now - start >= duration) {
+            span.textContent = final;
+            span.classList.remove('scrambling');
+            span.style.width = '';
+            return;
+          }
+          span.textContent = GLYPHS[Math.floor(Math.random() * GLYPHS.length)];
+          requestAnimationFrame(tick);
+        })(performance.now());
       });
     });
   }
 
-  // --------------------------------------------------------------------------
-  // 2. Navbar Scroll Effect & Active Link ScrollSpy
-  // --------------------------------------------------------------------------
-  const navbar = document.getElementById('navbar');
-  const sections = document.querySelectorAll('section[id]');
-
-  function updateNavbar() {
-    if (window.scrollY > 40) {
-      navbar.classList.add('scrolled');
-    } else {
-      navbar.classList.remove('scrolled');
-    }
-
-    const scrollY = window.pageYOffset;
-    sections.forEach(current => {
-      const sectionHeight = current.offsetHeight;
-      const sectionTop = current.offsetTop - 120;
-      const sectionId = current.getAttribute('id');
-      const navItem = document.querySelector(`.nav-menu a[href*="${sectionId}"]`);
-
-      if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
-        if (navItem) navItem.classList.add('active');
-      } else {
-        if (navItem) navItem.classList.remove('active');
-      }
-    });
+  if (!reduceMotion) {
+    (document.fonts ? document.fonts.ready : Promise.resolve()).then(decrypt);
   }
 
-  window.addEventListener('scroll', updateNavbar);
-  updateNavbar();
+  // Tags des cartes projets
+  const projects = document.querySelectorAll('.project');
+  function fillTags(el, tech) {
+    el.innerHTML = '';
+    tech.split(',').forEach(t => {
+      const chip = document.createElement('span');
+      chip.className = 'chip';
+      chip.textContent = t.trim();
+      el.appendChild(chip);
+    });
+  }
+  projects.forEach(p => fillTags(p.querySelector('.card-tags'), p.dataset.tech));
 
-  // --------------------------------------------------------------------------
-  // 3. Project Category Filtering
-  // --------------------------------------------------------------------------
-  const filterBtns = document.querySelectorAll('.filter-btn');
-  const projectCards = document.querySelectorAll('.project-card');
-
-  filterBtns.forEach(btn => {
+  // Filtres
+  document.querySelectorAll('.filter').forEach(btn => {
     btn.addEventListener('click', () => {
-      filterBtns.forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.filter').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
-
-      const filter = btn.getAttribute('data-filter');
-
-      projectCards.forEach(card => {
-        const categories = (card.getAttribute('data-category') || '').split(' ');
-        if (filter === 'all' || categories.includes(filter)) {
-          card.style.display = 'flex';
-          setTimeout(() => {
-            card.style.opacity = '1';
-            card.style.transform = 'scale(1)';
-          }, 10);
-        } else {
-          card.style.opacity = '0';
-          card.style.transform = 'scale(0.95)';
-          setTimeout(() => {
-            card.style.display = 'none';
-          }, 200);
-        }
+      const filter = btn.dataset.filter;
+      projects.forEach(p => {
+        p.hidden = !(filter === 'all' || p.dataset.category.split(' ').includes(filter));
       });
     });
   });
 
-  // --------------------------------------------------------------------------
-  // 4. Multi-Image Carousel for Project Cards
-  // --------------------------------------------------------------------------
-  projectCards.forEach(card => {
-    const rawImages = card.getAttribute('data-images');
-    let images = [];
-    try {
-      images = rawImages ? JSON.parse(rawImages) : [];
-    } catch (e) {
-      images = [];
-    }
-
-    if (images.length <= 1) return;
-
-    let currentIndex = 0;
-    const imgEl = card.querySelector('.project-card-img');
-    const prevBtn = card.querySelector('.card-slider-btn.prev');
-    const nextBtn = card.querySelector('.card-slider-btn.next');
-    const dots = card.querySelectorAll('.card-slider-dots .dot');
-    const badge = card.querySelector('.card-img-badge');
-
-    function showImage(index) {
-      if (index < 0) index = images.length - 1;
-      if (index >= images.length) index = 0;
-      currentIndex = index;
-
-      if (imgEl) {
-        imgEl.style.opacity = '0.5';
-        setTimeout(() => {
-          imgEl.src = images[currentIndex];
-          imgEl.style.opacity = '1';
-        }, 120);
-      }
-
-      dots.forEach((dot, i) => {
-        dot.classList.toggle('active', i === currentIndex);
-      });
-
-      if (badge) {
-        badge.innerHTML = `<i class="ri-image-line"></i> ${currentIndex + 1}/${images.length}`;
-      }
-    }
-
-    if (prevBtn) {
-      prevBtn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        showImage(currentIndex - 1);
-      });
-    }
-
-    if (nextBtn) {
-      nextBtn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        showImage(currentIndex + 1);
-      });
-    }
-
-    dots.forEach((dot, i) => {
-      dot.addEventListener('click', (e) => {
-        e.stopPropagation();
-        showImage(i);
-      });
-    });
-
-    card._getCurrentImageIndex = () => currentIndex;
-    card._getImages = () => images;
-  });
-
-  // --------------------------------------------------------------------------
-  // 5. Project Preview Modal with Multi-Image Carousel & Thumbnails
-  // --------------------------------------------------------------------------
+  // Modale
   const modal = document.getElementById('project-modal');
-  const modalCloseBtn = document.getElementById('modal-close-btn');
-  const modalTitle = document.getElementById('modal-title');
-  const modalDesc = document.getElementById('modal-desc');
-  const modalImg = document.getElementById('modal-img');
-  const modalTag = document.getElementById('modal-tag');
-  const modalTech = document.getElementById('modal-tech');
-  const modalPrevBtn = document.getElementById('modal-prev-btn');
-  const modalNextBtn = document.getElementById('modal-next-btn');
-  const modalCounter = document.getElementById('modal-counter');
-  const modalThumbnails = document.getElementById('modal-thumbnails');
-  const modalGithub = document.getElementById('modal-github');
-  const modalDemo = document.getElementById('modal-demo');
+  const card = modal.querySelector('.modal-card');
+  const img = document.getElementById('modal-img');
+  const counter = document.getElementById('modal-counter');
+  const thumbs = document.getElementById('modal-thumbnails');
+  const prevBtn = document.getElementById('modal-prev-btn');
+  const nextBtn = document.getElementById('modal-next-btn');
+  const github = document.getElementById('modal-github');
+  const demo = document.getElementById('modal-demo');
+  let images = [];
+  let index = 0;
+  let lastFocus = null;
 
-  let modalImages = [];
-  let modalIndex = 0;
+  function show(i) {
+    index = (i + images.length) % images.length;
+    img.src = images[index];
+    img.alt = `Capture ${index + 1} sur ${images.length}`;
+    counter.textContent = `${index + 1} / ${images.length}`;
+    thumbs.querySelectorAll('button').forEach((b, k) => b.classList.toggle('active', k === index));
+  }
 
-  function updateModalImage(index) {
-    if (!modalImages || modalImages.length === 0) return;
-    if (index < 0) index = modalImages.length - 1;
-    if (index >= modalImages.length) index = 0;
-    modalIndex = index;
+  function openModal(p) {
+    lastFocus = document.activeElement;
+    images = JSON.parse(p.dataset.images);
+    document.getElementById('modal-title').textContent = p.dataset.title;
+    document.getElementById('modal-desc').textContent = p.dataset.desc;
+    fillTags(document.getElementById('modal-tech'), p.dataset.tech);
 
-    if (modalImg) {
-      modalImg.style.opacity = '0.3';
-      setTimeout(() => {
-        modalImg.src = modalImages[modalIndex];
-        modalImg.style.opacity = '1';
-      }, 100);
+    for (const [el, url] of [[github, p.dataset.github], [demo, p.dataset.live]]) {
+      el.hidden = !url;
+      if (url) el.href = url;
     }
 
-    if (modalCounter) {
-      modalCounter.textContent = `${modalIndex + 1} / ${modalImages.length}`;
-      modalCounter.style.display = modalImages.length > 1 ? 'block' : 'none';
-    }
-
-    if (modalPrevBtn && modalNextBtn) {
-      const display = modalImages.length > 1 ? 'flex' : 'none';
-      modalPrevBtn.style.display = display;
-      modalNextBtn.style.display = display;
-    }
-
-    const thumbs = modalThumbnails?.querySelectorAll('.modal-thumb');
-    thumbs?.forEach((thumb, i) => {
-      thumb.classList.toggle('active', i === modalIndex);
-    });
-  }
-
-  function openProjectModal(card) {
-    const title = card.getAttribute('data-title') || card.querySelector('.project-title')?.textContent;
-    const desc = card.getAttribute('data-desc') || card.querySelector('.project-summary')?.textContent;
-    const category = card.querySelector('.project-category-tag')?.textContent;
-    const techItems = card.querySelectorAll('.project-tech-tags span');
-
-    // Retrieve images array
-    const rawImages = card.getAttribute('data-images');
-    try {
-      modalImages = rawImages ? JSON.parse(rawImages) : [card.querySelector('.project-card-img')?.src];
-    } catch (e) {
-      modalImages = [card.querySelector('.project-card-img')?.src];
-    }
-
-    // Current index on card
-    modalIndex = typeof card._getCurrentImageIndex === 'function' ? card._getCurrentImageIndex() : 0;
-
-    modalTitle.textContent = title;
-    modalDesc.textContent = desc;
-    modalTag.textContent = category;
-
-    // Tech tags
-    modalTech.innerHTML = '';
-    techItems.forEach(t => {
-      const span = document.createElement('span');
-      span.className = 'skill-pill';
-      span.textContent = t.textContent;
-      modalTech.appendChild(span);
-    });
-
-    // Links
-    const linkBtns = card.querySelectorAll('.project-links a');
-    let liveUrl = null;
-    let githubUrl = null;
-
-    linkBtns.forEach(a => {
-      if (a.href.includes('github.com')) {
-        githubUrl = a.href;
-      } else if (a.href && a.href !== '#' && !a.href.startsWith('javascript')) {
-        liveUrl = a.href;
-      }
-    });
-
-    if (liveUrl && modalDemo) {
-      modalDemo.href = liveUrl;
-      modalDemo.style.display = 'inline-flex';
-    } else if (modalDemo) {
-      modalDemo.style.display = 'none';
-    }
-
-    if (githubUrl && modalGithub) {
-      modalGithub.href = githubUrl;
-      modalGithub.style.display = 'inline-flex';
-    } else if (modalGithub) {
-      modalGithub.style.display = 'none';
-    }
-
-    // Build thumbnails
-    if (modalThumbnails) {
-      modalThumbnails.innerHTML = '';
-      if (modalImages.length > 1) {
-        modalThumbnails.style.display = 'flex';
-        modalImages.forEach((src, idx) => {
-          const thumb = document.createElement('div');
-          thumb.className = `modal-thumb ${idx === modalIndex ? 'active' : ''}`;
-          thumb.innerHTML = `<img src="${src}" alt="Miniature ${idx + 1}" />`;
-          thumb.addEventListener('click', () => updateModalImage(idx));
-          modalThumbnails.appendChild(thumb);
-        });
-      } else {
-        modalThumbnails.style.display = 'none';
-      }
-    }
-
-    updateModalImage(modalIndex);
-
-    modal.classList.add('active');
-    document.body.style.overflow = 'hidden';
-  }
-
-  const modalZoomBtn = document.getElementById('modal-zoom-btn');
-  const modalCard = modal?.querySelector('.modal-card');
-
-  function toggleFullscreen() {
-    if (!modalCard) return;
-    const isFullscreen = modalCard.classList.toggle('fullscreen-mode');
-    if (modalZoomBtn) {
-      modalZoomBtn.innerHTML = isFullscreen 
-        ? '<i class="ri-zoom-out-line"></i>' 
-        : '<i class="ri-zoom-in-line"></i>';
-      modalZoomBtn.title = isFullscreen ? 'Réduire' : 'Agrandir / Plein écran';
-    }
-  }
-
-  if (modalZoomBtn) {
-    modalZoomBtn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      toggleFullscreen();
-    });
-  }
-
-  if (modalImg) {
-    modalImg.addEventListener('click', (e) => {
-      e.stopPropagation();
-      toggleFullscreen();
-    });
-  }
-
-  function closeProjectModal() {
-    modal.classList.remove('active');
-    if (modalCard) {
-      modalCard.classList.remove('fullscreen-mode');
-      if (modalZoomBtn) {
-        modalZoomBtn.innerHTML = '<i class="ri-zoom-in-line"></i>';
-        modalZoomBtn.title = 'Agrandir / Plein écran';
-      }
-    }
-    document.body.style.overflow = 'auto';
-  }
-
-  if (modalPrevBtn) {
-    modalPrevBtn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      updateModalImage(modalIndex - 1);
-    });
-  }
-
-  if (modalNextBtn) {
-    modalNextBtn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      updateModalImage(modalIndex + 1);
-    });
-  }
-
-  document.querySelectorAll('.project-preview-btn').forEach(btn => {
-    btn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      const card = btn.closest('.project-card');
-      openProjectModal(card);
-    });
-  });
-
-  if (modalCloseBtn) {
-    modalCloseBtn.addEventListener('click', closeProjectModal);
-  }
-
-  if (modal) {
-    modal.addEventListener('click', (e) => {
-      if (e.target === modal) closeProjectModal();
-    });
-  }
-
-  document.addEventListener('keydown', (e) => {
-    if (modal && modal.classList.contains('active')) {
-      if (e.key === 'Escape') closeProjectModal();
-      if (e.key === 'ArrowLeft') updateModalImage(modalIndex - 1);
-      if (e.key === 'ArrowRight') updateModalImage(modalIndex + 1);
-      if (e.key === 'f' || e.key === 'F') toggleFullscreen();
-    }
-  });
-
-  // --------------------------------------------------------------------------
-  // 6. Copy Email with Toast Notification
-  // --------------------------------------------------------------------------
-  const copyBtn = document.getElementById('copy-email-btn');
-  const emailElement = document.getElementById('email-text');
-  const toast = document.getElementById('toast');
-  const toastMessage = document.getElementById('toast-message');
-
-  function showToast(message) {
-    if (!toast) return;
-    toastMessage.textContent = message;
-    toast.classList.add('show');
-    setTimeout(() => {
-      toast.classList.remove('show');
-    }, 3200);
-  }
-
-  if (copyBtn) {
-    copyBtn.addEventListener('click', () => {
-      const email = emailElement?.textContent?.trim() || 'andrei.vartiuc@epita.fr';
-      navigator.clipboard.writeText(email).then(() => {
-        showToast(`✓ Email copié : ${email}`);
-      }).catch(() => {
-        showToast(`Email : ${email}`);
+    const multi = images.length > 1;
+    prevBtn.hidden = nextBtn.hidden = counter.hidden = !multi;
+    thumbs.hidden = !multi;
+    thumbs.innerHTML = '';
+    if (multi) {
+      images.forEach((src, k) => {
+        const b = document.createElement('button');
+        b.setAttribute('aria-label', `Image ${k + 1}`);
+        b.innerHTML = `<img src="${src}" alt="" />`;
+        b.addEventListener('click', () => show(k));
+        thumbs.appendChild(b);
       });
-    });
+    }
+
+    show(0);
+    modal.hidden = false;
+    document.body.style.overflow = 'hidden';
+    document.getElementById('modal-close-btn').focus();
   }
 
+  function closeModal() {
+    modal.hidden = true;
+    card.classList.remove('zoom');
+    document.body.style.overflow = '';
+    if (lastFocus) lastFocus.focus();
+  }
+
+  projects.forEach(p => p.querySelector('.card').addEventListener('click', () => openModal(p)));
+  document.getElementById('modal-close-btn').addEventListener('click', closeModal);
+  modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
+  prevBtn.addEventListener('click', () => show(index - 1));
+  nextBtn.addEventListener('click', () => show(index + 1));
+  img.addEventListener('click', () => card.classList.toggle('zoom'));
+
+  document.addEventListener('keydown', e => {
+    if (modal.hidden) return;
+    if (e.key === 'Escape') closeModal();
+    if (e.key === 'ArrowLeft') show(index - 1);
+    if (e.key === 'ArrowRight') show(index + 1);
+  });
+
+  // Copie de l'email
+  const toast = document.getElementById('toast');
+  function notify(msg) {
+    toast.textContent = msg;
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 2500);
+  }
+  document.getElementById('copy-email-btn').addEventListener('click', () => {
+    const email = document.getElementById('email-text').textContent.trim();
+    navigator.clipboard.writeText(email)
+      .then(() => notify('Adresse copiée'))
+      .catch(() => notify(email));
+  });
 });

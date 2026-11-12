@@ -1,688 +1,180 @@
 <!DOCTYPE html>
-<html lang="fr" class="scroll-smooth">
+<html lang="fr">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Andrei Vartiuc | Étudiant Ingénieur EPITA • Portfolio</title>
-  <meta name="description" content="Portfolio d'Andrei Vartiuc, étudiant ingénieur à l'EPITA. Projets logiciels, systèmes, outils et parcours académique." />
-  
-  <!-- Favicon -->
+  <title>Andrei Vartiuc | Étudiant ingénieur EPITA</title>
+  <meta name="description" content="Portfolio d'Andrei Vartiuc, étudiant ingénieur à l'EPITA. Projets en C, Rust, Python et C#." />
+  <meta name="theme-color" content="#0c0d0f" />
   <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg" />
-  
-  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
-  
-  <!-- Remix Icons for clean lightweight tech icons -->
-  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet" />
-  
-  <!-- Stylesheet -->
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,300..800&family=Hanken+Grotesk:wght@400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
 
-  <!-- Arrière-plan animé géométrique (Canvas) -->
-  <canvas id="bg-canvas"></canvas>
-
-  <!-- Header / Navigation -->
-  <header class="header" id="navbar">
-    <div class="container nav-container">
-      <a href="#hero" class="logo">
-        <span class="logo-name">Andrei Vartiuc</span>
-      </a>
-
-      <nav class="nav-menu" id="nav-menu">
-        <ul class="nav-list">
-          <li><a href="#about" class="nav-link">À Propos</a></li>
-          <li><a href="#skills" class="nav-link">Compétences</a></li>
-          <li><a href="#projects" class="nav-link">Projets</a></li>
-          <li><a href="#timeline" class="nav-link">Parcours</a></li>
-          <li><a href="#contact" class="nav-link">Contact</a></li>
-        </ul>
-      </nav>
-
-      <div class="nav-actions">
-        <a href="assets/docs/cv_andrei_vartiuc.pdf" download class="btn btn-outline btn-sm">
-          <i class="ri-file-download-line"></i>
-          <span>Mon CV</span>
-        </a>
-        <button class="nav-toggle" id="nav-toggle" aria-label="Menu">
-          <i class="ri-menu-4-line"></i>
-        </button>
-      </div>
-    </div>
+  <header class="site-header">
+    <a href="#top" class="site-name">Andrei Vartiuc</a>
+    <nav class="site-nav" aria-label="Navigation principale">
+      <a href="#projets">Projets</a>
+      <a href="#competences">Compétences</a>
+      <a href="#parcours">Parcours</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <a href="assets/docs/cv_andrei_vartiuc.pdf" download class="pill-btn">CV</a>
   </header>
 
-  <main>
-    <!-- Hero Section -->
-    <section class="section hero" id="hero">
-      <div class="container hero-container">
-        <div class="hero-content">
-          <h1 class="hero-title">
-            Andrei Vartiuc
-          </h1>
+  <main id="top">
 
-          <p class="hero-role">
-            Étudiant Ingénieur @ EPITA • Intérêt Cybersécurité, IA &amp; Systèmes
-          </p>
+    <section class="hero">
+      <h1 class="hero-name" id="hero-name" aria-label="Andrei Vartiuc">
+        <span class="line" data-text="Andrei"></span>
+        <span class="line" data-text="Vartiuc"></span>
+      </h1>
 
-          <p class="hero-desc">
-            Étudiant en cycle ingénieur à l'EPITA, je m'intéresse particulièrement à la cybersécurité, à l'intelligence artificielle et au développement logiciel/système. Passionné par la conception d'applications robustes et performantes (C, Rust, Python, C#).
-          </p>
-
-          <div class="hero-cta">
-            <a href="#projects" class="btn btn-primary">
-              <span>Voir mes projets</span>
-              <i class="ri-arrow-right-line"></i>
-            </a>
-            <a href="assets/docs/cv_andrei_vartiuc.pdf" download class="btn btn-glass">
-              <span>Télécharger mon CV</span>
-              <i class="ri-file-download-line"></i>
-            </a>
-          </div>
-
-          <div class="hero-stats">
-            <div class="stat-item">
-              <span class="stat-number">EPITA</span>
-              <span class="stat-label">École d'Ingénieurs</span>
-            </div>
-            <div class="stat-divider"></div>
-            <div class="stat-item">
-              <span class="stat-number">#33k</span>
-              <span class="stat-label">Root-Me (@Loki_404)</span>
-            </div>
-            <div class="stat-divider"></div>
-            <div class="stat-item">
-              <span class="stat-number">Promo 2029</span>
-              <span class="stat-label">Cycle Ingénieur</span>
-            </div>
+      <div class="hero-lower">
+        <div class="hero-copy">
+          <p class="status"><span class="status-dot"></span>Disponible en alternance, ING 2 et 3</p>
+          <p class="hero-text">Étudiant ingénieur à l'EPITA (promo 2029). Je développe en C, Rust, Python et C#, avec un intérêt pour la sécurité et les systèmes.</p>
+          <div class="hero-actions">
+            <a href="#projets" class="btn btn-solid">Voir mes projets</a>
+            <a href="assets/docs/cv_andrei_vartiuc.pdf" download class="btn btn-line">Télécharger mon CV</a>
           </div>
         </div>
-
-        <div class="hero-visual">
-          <div class="bento-hero-card glass-panel">
-            <div class="bento-header">
-              <div class="bento-user">
-                <img src="assets/images/photo_de_profil.png" alt="Andrei" class="bento-avatar" />
-                <div>
-                  <div class="bento-name">Andrei Vartiuc</div>
-                  <div class="bento-sub">EPITA • Promo 2029</div>
-                </div>
-              </div>
-            </div>
-
-            <div class="bento-body">
-              <div class="bento-item">
-                <span class="bento-item-label"><i class="ri-map-pin-line"></i> Localisation</span>
-                <span class="bento-item-value">Paris, France</span>
-              </div>
-              <div class="bento-item">
-                <span class="bento-item-label"><i class="ri-compass-3-line"></i> Intérêts cibles</span>
-                <span class="bento-item-value">Cyber, IA &amp; Systèmes</span>
-              </div>
-              <div class="bento-item">
-                <span class="bento-item-label"><i class="ri-flag-line"></i> Root-Me</span>
-                <span class="bento-item-value">@Loki_404 (Top 33k)</span>
-              </div>
-              <div class="bento-item">
-                <span class="bento-item-label"><i class="ri-code-s-slash-line"></i> Langages clés</span>
-                <span class="bento-item-value">C • Rust • Python • C#</span>
-              </div>
-            </div>
-          </div>
-        </div>
+        <figure class="hero-photo">
+          <img src="assets/images/photo_de_profil.png" alt="Portrait d'Andrei Vartiuc" />
+        </figure>
       </div>
     </section>
 
-    <!-- Section À Propos -->
-    <section class="section about" id="about">
-      <div class="container">
-        <div class="section-header text-center">
-          <div class="section-tag">À Propos</div>
-          <h2 class="section-title">À Propos D'Andrei</h2>
-          <p class="section-subtitle">Étudiant ingénieur curieux et passionné par les systèmes, la sécurité informatique et l'IA.</p>
-        </div>
-
-        <div class="about-grid">
-          <div class="about-avatar-card glass-panel">
-            <div class="avatar-wrapper">
-              <img src="assets/images/photo_de_profil.png" alt="Andrei Vartiuc" class="avatar-img" />
-            </div>
-            <h3 class="about-name">Andrei Vartiuc</h3>
-            <p class="about-role">Étudiant Ingénieur @ EPITA</p>
-            <div class="about-socials">
-              <a href="https://github.com/andrei-vartiuc" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="GitHub" title="GitHub (@andrei-vartiuc)"><i class="ri-github-fill"></i></a>
-              <a href="https://www.linkedin.com/in/andrei-vartiuc/" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="LinkedIn" title="LinkedIn"><i class="ri-linkedin-fill"></i></a>
-              <a href="https://www.root-me.org/Loki_404" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Root-Me" title="Root-Me (@Loki_404)"><i class="ri-flag-fill"></i></a>
-              <a href="https://discord.com/users/944309713393295360" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Discord" title="Discord (@0x8086)"><i class="ri-discord-fill"></i></a>
-              <a href="mailto:andrei.vartiuc@epita.fr" class="social-link" aria-label="Email" title="Email"><i class="ri-mail-line"></i></a>
-            </div>
-          </div>
-
-          <div class="about-text-card glass-panel">
-            <h3 class="about-heading">Curiosité technique, développement logiciel &amp; sécurité</h3>
-            <p class="about-paragraph">
-              Étudiant ingénieur à l'EPITA, je suis passionné par l'informatique, le développement logiciel, le diagnostic matériel et la programmation robuste.
-            </p>
-            <p class="about-paragraph">
-              Je conçois des projets variés allant d'outils axés sur la confidentialité (KrateBox, PassVault) à des moteurs optimisés en Rust et des algorithmes en C (Solveur OCR). Curieux de découvrir en profondeur la cybersécurité et l'intelligence artificielle, je recherche une alternance pour mettre ma rigueur au service de projets concrets.
-            </p>
-
-            <div class="about-highlights">
-              <div class="highlight-box">
-                <i class="ri-shield-check-line highlight-icon"></i>
-                <div>
-                  <h4>Sécurité &amp; Cryptographie</h4>
-                  <p>Pratique sur Root-Me (@Loki_404), chiffrement AES, labs OWASP.</p>
-                </div>
-              </div>
-              <div class="highlight-box">
-                <i class="ri-cpu-line highlight-icon"></i>
-                <div>
-                  <h4>Systèmes &amp; Bas-Niveau</h4>
-                  <p>Développement en C, Rust, C#, gestion mémoire et Linux.</p>
-                </div>
-              </div>
-            </div>
-          </div>
+    <section class="section" id="projets">
+      <div class="section-head">
+        <h2>Projets</h2>
+        <div class="filters" role="group" aria-label="Filtrer les projets">
+          <button class="filter active" data-filter="all">Tous</button>
+          <button class="filter" data-filter="cyber">Sécurité</button>
+          <button class="filter" data-filter="system">Systèmes</button>
+          <button class="filter" data-filter="apps">Web et mobile</button>
         </div>
       </div>
+
+      <ul class="grid">
+        <li class="project" data-category="apps cyber" data-title="KrateBox" data-desc="Boîte à outils 100% locale, axée sur la confidentialité. Aucune donnée ne quitte la machine de l'utilisateur." data-tech="Web, Local first, Confidentialité" data-live="https://kratebox.com/" data-images='["assets/projects/kratebox_1.png", "assets/projects/kratebox_2.png", "assets/projects/kratebox_3.png"]'>
+          <button class="card"><span class="card-media"><img src="assets/projects/kratebox_1.png" alt="" loading="lazy" /></span><span class="card-info"><span class="card-title">KrateBox</span><span class="card-tags"></span></span></button>
+        </li>
+        <li class="project" data-category="cyber" data-title="PassVault" data-desc="Gestionnaire de mots de passe local fondé sur le principe zero-knowledge, avec chiffrement AES-256 et dérivation de clé." data-tech="Python, AES-256, Zero-knowledge" data-github="https://github.com/andrei-vartiuc/PassVault" data-images='["assets/projects/passvault_1.png", "assets/projects/passvault_2.png", "assets/projects/passvault_3.png", "assets/projects/passvault_4.png", "assets/projects/passvault_5.png"]'>
+          <button class="card"><span class="card-media"><img src="assets/projects/passvault_1.png" alt="" loading="lazy" /></span><span class="card-info"><span class="card-title">PassVault</span><span class="card-tags"></span></span></button>
+        </li>
+        <li class="project" data-category="system" data-title="Solveur OCR" data-desc="Reconnaissance optique de caractères écrite en C pour détecter et résoudre des grilles de mots mêlés." data-tech="C, Traitement d'image, Algorithmes" data-github="https://github.com/andrei-vartiuc/Ocr-Search" data-images='["assets/projects/ocr_search_1.png", "assets/projects/ocr_search_2.png", "assets/projects/ocr_search_3.png"]'>
+          <button class="card"><span class="card-media"><img src="assets/projects/ocr_search_1.png" alt="" loading="lazy" /></span><span class="card-info"><span class="card-title">Solveur OCR</span><span class="card-tags"></span></span></button>
+        </li>
+        <li class="project" data-category="system" data-title="Quasar Image Editor" data-desc="Éditeur d'images écrit en Rust, avec manipulation directe des pixels en mémoire." data-tech="Rust, GUI, Traitement d'image" data-github="https://github.com/andrei-vartiuc/Quasar-Image-Editor" data-images='["assets/projects/quasar_image_editor_1.png", "assets/projects/quasar_image_editor_2.png", "assets/projects/quasar_image_editor_3.png"]'>
+          <button class="card"><span class="card-media"><img src="assets/projects/quasar_image_editor_1.png" alt="" loading="lazy" /></span><span class="card-info"><span class="card-title">Quasar Image Editor</span><span class="card-tags"></span></span></button>
+        </li>
+        <li class="project" data-category="system apps" data-title="Eternal Forest" data-desc="Jeu 2D de survie développé en C# avec le moteur Godot : entités, animations et physique." data-tech="C#, Godot, Jeu vidéo" data-github="https://github.com/andrei-vartiuc/Eternal-Forest" data-images='["assets/projects/eternal_forest_1.png", "assets/projects/eternal_forest_2.png", "assets/projects/eternal_forest_3.png"]'>
+          <button class="card"><span class="card-media"><img src="assets/projects/eternal_forest_1.png" alt="" loading="lazy" /></span><span class="card-info"><span class="card-title">Eternal Forest</span><span class="card-tags"></span></span></button>
+        </li>
+        <li class="project" data-category="cyber" data-title="Sécurité web (DVWA)" data-desc="Travaux pratiques sur les vulnérabilités web courantes : injections SQL, XSS, CSRF et OWASP Top 10." data-tech="DVWA, OWASP, SQLi, XSS" data-images='["assets/projects/dvwa.png"]'>
+          <button class="card"><span class="card-media"><img src="assets/projects/dvwa.png" alt="" loading="lazy" /></span><span class="card-info"><span class="card-title">Sécurité web (DVWA)</span><span class="card-tags"></span></span></button>
+        </li>
+        <li class="project" data-category="system" data-title="Magic Dashboard" data-desc="Crate Rust qui affiche en temps réel, dans une page web locale, les variables d'un programme pour le débogage." data-tech="Rust, WebSockets, Monitoring" data-github="https://github.com/andrei-vartiuc/Magic-Dashboard" data-images='["assets/projects/magic_dashboard.png"]'>
+          <button class="card"><span class="card-media"><img src="assets/projects/magic_dashboard.png" alt="" loading="lazy" /></span><span class="card-info"><span class="card-title">Magic Dashboard</span><span class="card-tags"></span></span></button>
+        </li>
+        <li class="project contain" data-category="apps" data-title="Musical" data-desc="Application Android en Kotlin pour rechercher, télécharger et écouter de la musique, avec lecteur audio intégré." data-tech="Kotlin, Android, Audio" data-github="https://github.com/andrei-vartiuc/Musical" data-images='["assets/projects/musical_1.png.jpg", "assets/projects/musical_2.png.jpg"]'>
+          <button class="card"><span class="card-media"><img src="assets/projects/musical_1.png.jpg" alt="" loading="lazy" /></span><span class="card-info"><span class="card-title">Musical</span><span class="card-tags"></span></span></button>
+        </li>
+      </ul>
     </section>
 
-    <!-- Section Compétences -->
-    <section class="section skills" id="skills">
-      <div class="container">
-        <div class="section-header text-center">
-          <div class="section-tag">Compétences</div>
-          <h2 class="section-title">Compétences &amp; Technologies</h2>
-          <p class="section-subtitle">Langages de programmation, sécurité, outils systèmes et frameworks.</p>
-        </div>
-
-        <div class="skills-grid">
-          <!-- Carte Systèmes & Bas-Niveau -->
-          <div class="skill-card glass-panel">
-            <div class="skill-header">
-              <div class="skill-icon"><i class="ri-cpu-line"></i></div>
-              <h3>Systèmes &amp; Langages</h3>
-            </div>
-            <p class="skill-desc">Développement d'applications rapides, gestion de la mémoire et optimisation système.</p>
-            <div class="skill-tags">
-              <span class="skill-pill"><i class="ri-code-s-slash-line"></i> C / C#</span>
-              <span class="skill-pill"><i class="ri-terminal-box-line"></i> Rust</span>
-              <span class="skill-pill"><i class="ri-code-box-line"></i> Python</span>
-              <span class="skill-pill"><i class="ri-brackets-line"></i> OCaml</span>
-              <span class="skill-pill"><i class="ri-android-line"></i> Kotlin</span>
-            </div>
-          </div>
-
-          <!-- Carte Cybersécurité & Réseaux -->
-          <div class="skill-card glass-panel">
-            <div class="skill-header">
-              <div class="skill-icon"><i class="ri-shield-keyhole-line"></i></div>
-              <h3>Sécurité &amp; Cryptographie</h3>
-            </div>
-            <p class="skill-desc">Pratique des bases de la sécurité, cryptographie appliquée et sensibilisation aux vulnérabilités.</p>
-            <div class="skill-tags">
-              <span class="skill-pill"><i class="ri-flag-line"></i> Root-Me (@Loki_404)</span>
-              <span class="skill-pill"><i class="ri-bug-line"></i> Labs OWASP / DVWA</span>
-              <span class="skill-pill"><i class="ri-lock-2-line"></i> Chiffrement AES</span>
-              <span class="skill-pill"><i class="ri-key-line"></i> Zero-Knowledge</span>
-              <span class="skill-pill"><i class="ri-shield-check-line"></i> Bonnes Pratiques Sec</span>
-            </div>
-          </div>
-
-          <!-- Carte Outils, OS & DevOps -->
-          <div class="skill-card glass-panel">
-            <div class="skill-header">
-              <div class="skill-icon"><i class="ri-tools-line"></i></div>
-              <h3>Environnements & Outils</h3>
-            </div>
-            <p class="skill-desc">Maîtrise des environnements Linux, conteneurs, moteurs de jeu et contrôle de version.</p>
-            <div class="skill-tags">
-              <span class="skill-pill"><i class="ri-ubuntu-line"></i> Linux (NixOS, Mint, Ubuntu)</span>
-              <span class="skill-pill"><i class="ri-git-branch-line"></i> Git & GitHub</span>
-              <span class="skill-pill"><i class="ri-box-3-line"></i> Docker / Makefile</span>
-              <span class="skill-pill"><i class="ri-gamepad-line"></i> Godot Engine / Unity</span>
-              <span class="skill-pill"><i class="ri-database-2-line"></i> SQLite / MySQL</span>
-            </div>
-          </div>
-        </div>
+    <section class="section" id="competences">
+      <div class="section-head">
+        <h2>Compétences</h2>
       </div>
+      <dl class="skills">
+        <div class="skill">
+          <dt>Langages</dt>
+          <dd><span>C</span><span>C#</span><span>Rust</span><span>Python</span><span>OCaml</span><span>Kotlin</span></dd>
+        </div>
+        <div class="skill">
+          <dt>Sécurité</dt>
+          <dd><span>Root-Me</span><span>OWASP</span><span>DVWA</span><span>AES</span><span>Zero-knowledge</span></dd>
+        </div>
+        <div class="skill">
+          <dt>Outils</dt>
+          <dd><span>Linux</span><span>NixOS</span><span>Git</span><span>Docker</span><span>Makefile</span><span>Godot</span><span>Unity</span><span>SQLite</span><span>MySQL</span></dd>
+        </div>
+      </dl>
     </section>
 
-    <!-- Section Projets -->
-    <section class="section projects" id="projects">
-      <div class="container">
-        <div class="section-header text-center">
-          <div class="section-tag">Projets</div>
-          <h2 class="section-title">Mes Projets Réalisés</h2>
-          <p class="section-subtitle">Outils de confidentialité, projets systèmes, utilitaires et applications.</p>
-        </div>
-
-        <!-- Filtres des projets -->
-        <div class="project-filters">
-          <button class="filter-btn active" data-filter="all">Tous (8)</button>
-          <button class="filter-btn" data-filter="cyber">Sécurité &amp; Privacy</button>
-          <button class="filter-btn" data-filter="system">Systèmes (Rust / C / C#)</button>
-          <button class="filter-btn" data-filter="apps">Web &amp; Mobile</button>
-        </div>
-
-        <!-- Grille des projets -->
-        <div class="projects-grid" id="projects-grid">
-          
-          <!-- Projet 1 : KrateBox -->
-          <div class="project-card glass-panel" data-category="apps cyber" data-title="KrateBox" data-desc="Plateforme d'outils multitool 100% locaux axés sur la confidentialité totale et l'optimisation de la productivité. Aucune donnée ne quitte la machine de l'utilisateur." data-tech="Web, Privacy, Local First, Zero Cloud" data-images='["assets/projects/kratebox_1.png", "assets/projects/kratebox_2.png", "assets/projects/kratebox_3.png"]'>
-            <div class="project-img-wrapper">
-              <img src="assets/projects/kratebox_1.png" alt="KrateBox" class="project-card-img" />
-              <button class="card-slider-btn prev" aria-label="Image précédente"><i class="ri-arrow-left-s-line"></i></button>
-              <button class="card-slider-btn next" aria-label="Image suivante"><i class="ri-arrow-right-s-line"></i></button>
-              <div class="card-slider-dots">
-                <span class="dot active"></span>
-                <span class="dot"></span>
-                <span class="dot"></span>
-              </div>
-              <span class="card-img-badge"><i class="ri-image-line"></i> 1/3</span>
-              <div class="project-overlay">
-                <button class="btn btn-sm btn-primary project-preview-btn">Aperçu Grand Format</button>
-              </div>
-            </div>
-            <div class="project-info">
-              <div class="project-category-tag">Web &amp; Mobile</div>
-              <h3 class="project-title">KrateBox</h3>
-              <p class="project-summary">Multitool 100% local pour la productivité garantissant le respect absolu de la vie privée.</p>
-              <div class="project-tech-tags">
-                <span>Web</span>
-                <span>Productivity</span>
-                <span>Privacy</span>
-              </div>
-              <div class="project-links">
-                <a href="https://kratebox.com/" target="_blank" rel="noopener noreferrer" class="link-btn" title="Visiter Kratebox.com"><i class="ri-external-link-line"></i> Lien</a>
-              </div>
-            </div>
-          </div>
-
-          <!-- Projet 2 : PassVault -->
-          <div class="project-card glass-panel" data-category="cyber" data-title="PassVault" data-desc="Gestionnaire de mots de passe local et ultra-sécurisé fondé sur le principe de zéro-connaissance (zero-knowledge) avec chiffrement fort AES-256 et dérivation de clé robuste." data-tech="Python, Chiffrement AES, Zero-Knowledge, Sécurité" data-images='["assets/projects/passvault_1.png", "assets/projects/passvault_2.png", "assets/projects/passvault_3.png", "assets/projects/passvault_4.png", "assets/projects/passvault_5.png"]'>
-            <div class="project-img-wrapper">
-              <img src="assets/projects/passvault_1.png" alt="PassVault" class="project-card-img" />
-              <button class="card-slider-btn prev" aria-label="Image précédente"><i class="ri-arrow-left-s-line"></i></button>
-              <button class="card-slider-btn next" aria-label="Image suivante"><i class="ri-arrow-right-s-line"></i></button>
-              <div class="card-slider-dots">
-                <span class="dot active"></span>
-                <span class="dot"></span>
-                <span class="dot"></span>
-                <span class="dot"></span>
-                <span class="dot"></span>
-              </div>
-              <span class="card-img-badge"><i class="ri-image-line"></i> 1/5</span>
-              <div class="project-overlay">
-                <button class="btn btn-sm btn-primary project-preview-btn">Aperçu Grand Format</button>
-              </div>
-            </div>
-            <div class="project-info">
-              <div class="project-category-tag">Sécurité &amp; Cryptographie</div>
-              <h3 class="project-title">PassVault</h3>
-              <p class="project-summary">Gestionnaire de mots de passe zero-knowledge local avec chiffrement symétrique AES.</p>
-              <div class="project-tech-tags">
-                <span>Python</span>
-                <span>AES-256</span>
-                <span>Zero-Knowledge</span>
-              </div>
-              <div class="project-links">
-                <a href="https://github.com/andrei-vartiuc/PassVault" target="_blank" rel="noopener noreferrer" class="link-btn" title="Code Source"><i class="ri-github-line"></i> Code</a>
-              </div>
-            </div>
-          </div>
-
-          <!-- Projet 3 : Solveur OCR & Recherche -->
-          <div class="project-card glass-panel" data-category="system" data-title="Solveur OCR &amp; Recherche de Mots" data-desc="Application de reconnaissance optique de caractères (OCR) conçue en langage C pur pour la détection et la résolution automatique de grilles de mots mêlés." data-tech="C, OCR, Traitement d'image, Algorithmes" data-images='["assets/projects/ocr_search_1.png", "assets/projects/ocr_search_2.png", "assets/projects/ocr_search_3.png"]'>
-            <div class="project-img-wrapper">
-              <img src="assets/projects/ocr_search_1.png" alt="Ocr Search" class="project-card-img" />
-              <button class="card-slider-btn prev" aria-label="Image précédente"><i class="ri-arrow-left-s-line"></i></button>
-              <button class="card-slider-btn next" aria-label="Image suivante"><i class="ri-arrow-right-s-line"></i></button>
-              <div class="card-slider-dots">
-                <span class="dot active"></span>
-                <span class="dot"></span>
-                <span class="dot"></span>
-              </div>
-              <span class="card-img-badge"><i class="ri-image-line"></i> 1/3</span>
-              <div class="project-overlay">
-                <button class="btn btn-sm btn-primary project-preview-btn">Aperçu Grand Format</button>
-              </div>
-            </div>
-            <div class="project-info">
-              <div class="project-category-tag">Système &amp; Algorithmique</div>
-              <h3 class="project-title">Solveur OCR (C)</h3>
-              <p class="project-summary">Reconnaissance de caractères et résolution automatique de grilles de mots en langage C pur.</p>
-              <div class="project-tech-tags">
-                <span>C</span>
-                <span>OCR</span>
-                <span>Algorithmes</span>
-              </div>
-              <div class="project-links">
-                <a href="https://github.com/andrei-vartiuc/Ocr-Search" target="_blank" rel="noopener noreferrer" class="link-btn" title="Code Source"><i class="ri-github-line"></i> Code</a>
-              </div>
-            </div>
-          </div>
-
-          <!-- Projet 4 : Quasar Image Editor -->
-          <div class="project-card glass-panel" data-category="system" data-title="Quasar Image Editor" data-desc="Éditeur d'images moderne, sécurisé et ultra-rapide entièrement conçu en Rust avec manipulation directe de pixels en mémoire vive." data-tech="Rust, Image Processing, High Performance, GUI" data-images='["assets/projects/quasar_image_editor_1.png", "assets/projects/quasar_image_editor_2.png", "assets/projects/quasar_image_editor_3.png"]'>
-            <div class="project-img-wrapper">
-              <img src="assets/projects/quasar_image_editor_1.png" alt="Quasar Image Editor" class="project-card-img" />
-              <button class="card-slider-btn prev" aria-label="Image précédente"><i class="ri-arrow-left-s-line"></i></button>
-              <button class="card-slider-btn next" aria-label="Image suivante"><i class="ri-arrow-right-s-line"></i></button>
-              <div class="card-slider-dots">
-                <span class="dot active"></span>
-                <span class="dot"></span>
-                <span class="dot"></span>
-              </div>
-              <span class="card-img-badge"><i class="ri-image-line"></i> 1/3</span>
-              <div class="project-overlay">
-                <button class="btn btn-sm btn-primary project-preview-btn">Aperçu Grand Format</button>
-              </div>
-            </div>
-            <div class="project-info">
-              <div class="project-category-tag">Moteur Graphique &amp; Rust</div>
-              <h3 class="project-title">Quasar Image Editor</h3>
-              <p class="project-summary">Éditeur d'images moderne et ultra-performant écrit en Rust avec manipulation de pixels en mémoire.</p>
-              <div class="project-tech-tags">
-                <span>Rust</span>
-                <span>Image Processing</span>
-                <span>Memory Safe</span>
-              </div>
-              <div class="project-links">
-                <a href="https://github.com/andrei-vartiuc/Quasar-Image-Editor" target="_blank" rel="noopener noreferrer" class="link-btn" title="Code Source"><i class="ri-github-line"></i> Code</a>
-              </div>
-            </div>
-          </div>
-
-          <!-- Projet 5 : Sécurité Web (DVWA & Labs) -->
-          <div class="project-card glass-panel" data-category="cyber" data-title="Sécurité Web (DVWA / Labs)" data-desc="Travaux pratiques et laboratoire d'apprentissage des vulnérabilités web courantes : injections SQL, failles XSS, CSRF et sensibilisation à l'OWASP Top 10." data-tech="DVWA, OWASP Top 10, Lab Sécurité Web" data-images='["assets/projects/dvwa.png"]'>
-            <div class="project-img-wrapper">
-              <img src="assets/projects/dvwa.png" alt="Sécurité Web" class="project-card-img" />
-              <span class="card-img-badge"><i class="ri-image-line"></i> 1/1</span>
-              <div class="project-overlay">
-                <button class="btn btn-sm btn-primary project-preview-btn">Aperçu Grand Format</button>
-              </div>
-            </div>
-            <div class="project-info">
-              <div class="project-category-tag">Sécurité Web &amp; Labs</div>
-              <h3 class="project-title">Sécurité Web (DVWA / Labs)</h3>
-              <p class="project-summary">Découverte et compréhension des vulnérabilités applicatives majeures de l'OWASP Top 10.</p>
-              <div class="project-tech-tags">
-                <span>SQLi / XSS</span>
-                <span>OWASP</span>
-                <span>Remédiation</span>
-              </div>
-              <div class="project-links">
-                <span class="link-btn" style="visibility: hidden; user-select: none;" aria-hidden="true"><i class="ri-github-line"></i> Code</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- Projet 6 : Eternal Forest -->
-          <div class="project-card glass-panel" data-category="system apps" data-title="Eternal Forest" data-desc="Jeu vidéo 2D de survie développé de zéro avec C# et le moteur Godot Engine, intégrant gestion d'entités, animations fluides et moteur physique." data-tech="C#, Godot Engine, Game Dev, 2D Physics" data-images='["assets/projects/eternal_forest_1.png", "assets/projects/eternal_forest_2.png", "assets/projects/eternal_forest_3.png"]'>
-            <div class="project-img-wrapper">
-              <img src="assets/projects/eternal_forest_1.png" alt="Eternal Forest" class="project-card-img" />
-              <button class="card-slider-btn prev" aria-label="Image précédente"><i class="ri-arrow-left-s-line"></i></button>
-              <button class="card-slider-btn next" aria-label="Image suivante"><i class="ri-arrow-right-s-line"></i></button>
-              <div class="card-slider-dots">
-                <span class="dot active"></span>
-                <span class="dot"></span>
-                <span class="dot"></span>
-              </div>
-              <span class="card-img-badge"><i class="ri-image-line"></i> 1/3</span>
-              <div class="project-overlay">
-                <button class="btn btn-sm btn-primary project-preview-btn">Aperçu Grand Format</button>
-              </div>
-            </div>
-            <div class="project-info">
-              <div class="project-category-tag">Game Development</div>
-              <h3 class="project-title">Eternal Forest</h3>
-              <p class="project-summary">Jeu 2D de survie développé en C# avec Godot Engine intégrant mécaniques et boucle de jeu fluide.</p>
-              <div class="project-tech-tags">
-                <span>C#</span>
-                <span>Godot Engine</span>
-                <span>Game Design</span>
-              </div>
-              <div class="project-links">
-                <a href="https://github.com/andrei-vartiuc/Eternal-Forest" target="_blank" rel="noopener noreferrer" class="link-btn" title="Code Source"><i class="ri-github-line"></i> Code</a>
-              </div>
-            </div>
-          </div>
-
-          <!-- Projet 7 : Magic Dashboard -->
-          <div class="project-card glass-panel" data-category="system" data-title="Magic Dashboard" data-desc="Crate Rust facilitant la visualisation web locale en temps réel de variables et métriques pour le débogage et le monitoring interactif." data-tech="Rust, Crate, WebSockets, Realtime" data-images='["assets/projects/magic_dashboard.png"]'>
-            <div class="project-img-wrapper">
-              <img src="assets/projects/magic_dashboard.png" alt="Magic Dashboard" class="project-card-img" />
-              <span class="card-img-badge"><i class="ri-image-line"></i> 1/1</span>
-              <div class="project-overlay">
-                <button class="btn btn-sm btn-primary project-preview-btn">Aperçu Grand Format</button>
-              </div>
-            </div>
-            <div class="project-info">
-              <div class="project-category-tag">Outil Rust &amp; Monitoring</div>
-              <h3 class="project-title">Magic Dashboard</h3>
-              <p class="project-summary">Crate Rust pour la visualisation web locale de variables système en temps réel.</p>
-              <div class="project-tech-tags">
-                <span>Rust</span>
-                <span>Monitoring</span>
-                <span>WebSockets</span>
-              </div>
-              <div class="project-links">
-                <a href="https://github.com/andrei-vartiuc/Magic-Dashboard" target="_blank" rel="noopener noreferrer" class="link-btn" title="Code Source"><i class="ri-github-line"></i> Code</a>
-              </div>
-            </div>
-          </div>
-
-          <!-- Projet 8 : Musical -->
-          <div class="project-card glass-panel" data-category="apps" data-title="Musical" data-desc="Application mobile Android native développée en Kotlin permettant de rechercher, télécharger et écouter de la musique gratuitement avec lecteur audio intégré." data-tech="Kotlin, Android Native, Audio Streaming" data-images='["assets/projects/musical_1.png.jpg", "assets/projects/musical_2.png.jpg"]'>
-            <div class="project-img-wrapper">
-              <img src="assets/projects/musical_1.png.jpg" alt="Musical App" class="project-card-img" />
-              <button class="card-slider-btn prev" aria-label="Image précédente"><i class="ri-arrow-left-s-line"></i></button>
-              <button class="card-slider-btn next" aria-label="Image suivante"><i class="ri-arrow-right-s-line"></i></button>
-              <div class="card-slider-dots">
-                <span class="dot active"></span>
-                <span class="dot"></span>
-              </div>
-              <span class="card-img-badge"><i class="ri-image-line"></i> 1/2</span>
-              <div class="project-overlay">
-                <button class="btn btn-sm btn-primary project-preview-btn">Aperçu Grand Format</button>
-              </div>
-            </div>
-            <div class="project-info">
-              <div class="project-category-tag">Développement Mobile</div>
-              <h3 class="project-title">Musical</h3>
-              <p class="project-summary">Application Android développée en Kotlin pour télécharger et écouter de la musique gratuitement.</p>
-              <div class="project-tech-tags">
-                <span>Kotlin</span>
-                <span>Android</span>
-                <span>Audio Stream</span>
-              </div>
-              <div class="project-links">
-                <a href="https://github.com/andrei-vartiuc/Musical" target="_blank" rel="noopener noreferrer" class="link-btn" title="Code Source"><i class="ri-github-line"></i> Code</a>
-              </div>
-            </div>
-          </div>
-
-        </div>
+    <section class="section" id="parcours">
+      <div class="section-head">
+        <h2>Parcours</h2>
       </div>
+      <ol class="timeline">
+        <li>
+          <span class="t-date">2024 à aujourd'hui</span>
+          <h3>Cycle ingénieur, EPITA</h3>
+          <p>Algorithmique, architecture des ordinateurs, systèmes d'exploitation, C, C++ et Rust. Spécialisation à venir en cybersécurité, IA ou systèmes.</p>
+        </li>
+        <li>
+          <span class="t-date">Expérience de 2 mois</span>
+          <h3>Préparateur de commandes, La Fourche</h3>
+          <p>Conditionnement, palettisation et préparation des expéditions, en équipe et sous contrainte de temps.</p>
+        </li>
+        <li>
+          <span class="t-date">2023</span>
+          <h3>Baccalauréat général</h3>
+          <p>Spécialités mathématiques, NSI et physique.</p>
+        </li>
+      </ol>
     </section>
 
-    <!-- Section Parcours / Timeline -->
-    <section class="section timeline" id="timeline">
-      <div class="container">
-        <div class="section-header text-center">
-          <div class="section-tag">Parcours</div>
-          <h2 class="section-title">Formations & Expériences</h2>
-          <p class="section-subtitle">Mon parcours académique et mes expériences professionnelles.</p>
-        </div>
-
-        <div class="timeline-container">
-          <div class="timeline-item">
-            <div class="timeline-dot"></div>
-            <div class="timeline-content glass-panel">
-              <span class="timeline-date">2024 - Présent</span>
-              <h3 class="timeline-title">Diplôme d'Ingénieur en Informatique</h3>
-              <h4 class="timeline-subtitle">EPITA (École pour l'Informatique et les Techniques Avancées)</h4>
-              <p>Formation d'excellence en ingénierie informatique : algorithmique, architecture des ordinateurs, systèmes d'exploitation, programmation en C/C++/Rust et découverte des domaines de spécialisation (Cybersécurité, IA, Systèmes).</p>
-            </div>
-          </div>
-
-          <div class="timeline-item">
-            <div class="timeline-dot"></div>
-            <div class="timeline-content glass-panel">
-              <span class="timeline-date">Expérience Professionnelle (2 mois)</span>
-              <h3 class="timeline-title">Préparateur de Commandes & Logistique</h3>
-              <h4 class="timeline-subtitle">La Fourche</h4>
-              <p>Conditionnement, emballage, palettisation, stabilisation et préparation à l'expédition. Développement d'une grande rigueur, d'un sens aigu du travail d'équipe et d'une efficacité opérationnelle sous contrainte de temps.</p>
-            </div>
-          </div>
-
-          <div class="timeline-item">
-            <div class="timeline-dot"></div>
-            <div class="timeline-content glass-panel">
-              <span class="timeline-date">2023</span>
-              <h3 class="timeline-title">Baccalauréat Général</h3>
-              <h4 class="timeline-subtitle">Spécialités : Mathématiques, NSI (Numérique & Sciences Info), Physique</h4>
-              <p>Obtention du baccalauréat avec focus sur les sciences exactes et l'initiation aux principes fondamentaux de la programmation informatique.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Section Contact -->
     <section class="section contact" id="contact">
-      <div class="container">
-        <div class="section-header text-center">
-          <div class="section-tag">Contact</div>
-          <h2 class="section-title">Me Contacter &amp; Échanger</h2>
-          <p class="section-subtitle">Ouvert aux opportunités d'alternance en ingénierie logicielle, cybersécurité, IA ou développement système (ING 2 &amp; 3).</p>
-        </div>
-
-        <div class="contact-hub-container">
-          <!-- Carte Email Principal -->
-          <div class="contact-card highlight glass-panel">
-            <div class="contact-card-icon"><i class="ri-mail-send-line"></i></div>
-            <div class="contact-card-info">
-              <span class="contact-card-label">Email Professionnel (EPITA)</span>
-              <span class="contact-card-value" id="email-text">andrei.vartiuc@epita.fr</span>
-            </div>
-            <button class="btn btn-primary btn-sm copy-btn" id="copy-email-btn" title="Copier l'adresse email">
-              <i class="ri-file-copy-line"></i>
-              <span>Copier</span>
-            </button>
-          </div>
-
-          <div class="contact-cards-grid">
-            <!-- LinkedIn -->
-            <a href="https://www.linkedin.com/in/andrei-vartiuc/" target="_blank" rel="noopener noreferrer" class="contact-card glass-panel">
-              <div class="contact-card-icon linkedin"><i class="ri-linkedin-box-fill"></i></div>
-              <div class="contact-card-info">
-                <span class="contact-card-label">Réseau Professionnel</span>
-                <span class="contact-card-value">LinkedIn / andrei-vartiuc</span>
-              </div>
-              <i class="ri-arrow-right-up-line contact-card-arrow"></i>
-            </a>
-
-            <!-- GitHub -->
-            <a href="https://github.com/andrei-vartiuc" target="_blank" rel="noopener noreferrer" class="contact-card glass-panel">
-              <div class="contact-card-icon github"><i class="ri-github-fill"></i></div>
-              <div class="contact-card-info">
-                <span class="contact-card-label">Projets & Code</span>
-                <span class="contact-card-value">GitHub / @andrei-vartiuc</span>
-              </div>
-              <i class="ri-arrow-right-up-line contact-card-arrow"></i>
-            </a>
-
-            <!-- Root-Me -->
-            <a href="https://www.root-me.org/Loki_404" target="_blank" rel="noopener noreferrer" class="contact-card glass-panel">
-              <div class="contact-card-icon rootme"><i class="ri-flag-fill"></i></div>
-              <div class="contact-card-info">
-                <span class="contact-card-label">CTF & Challenges Cyber</span>
-                <span class="contact-card-value">Root-Me / @Loki_404 (Top 33k)</span>
-              </div>
-              <i class="ri-arrow-right-up-line contact-card-arrow"></i>
-            </a>
-
-            <!-- Discord -->
-            <a href="https://discord.com/users/944309713393295360" target="_blank" rel="noopener noreferrer" class="contact-card glass-panel">
-              <div class="contact-card-icon discord"><i class="ri-discord-fill"></i></div>
-              <div class="contact-card-info">
-                <span class="contact-card-label">Contact Rapide</span>
-                <span class="contact-card-value">Discord / @0x8086</span>
-              </div>
-              <i class="ri-arrow-right-up-line contact-card-arrow"></i>
-            </a>
-          </div>
-
-          <!-- Bouton CV en grand -->
-          <div class="contact-cv-box text-center">
-            <a href="assets/docs/cv_andrei_vartiuc.pdf" download class="btn btn-outline">
-              <i class="ri-file-pdf-2-line"></i>
-              <span>Télécharger mon CV complet (PDF)</span>
-            </a>
-          </div>
-        </div>
-      </div>
+      <div class="section-head"><h2>Contact</h2></div>
+      <p class="contact-text">Je cherche une alternance en ingénierie logicielle, cybersécurité, IA ou systèmes (ING 2 et 3).</p>
+      <p class="email-line">
+        <a href="mailto:andrei.vartiuc@epita.fr" id="email-text">andrei.vartiuc@epita.fr</a>
+        <button class="pill-btn" id="copy-email-btn">Copier</button>
+      </p>
+      <ul class="links">
+        <li><a class="btn btn-line" href="https://github.com/andrei-vartiuc" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+        <li><a class="btn btn-line" href="https://www.linkedin.com/in/andrei-vartiuc/" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+        <li><a class="btn btn-line" href="https://www.root-me.org/Loki_404" target="_blank" rel="noopener noreferrer">Root-Me</a></li>
+        <li><a class="btn btn-line" href="https://discord.com/users/944309713393295360" target="_blank" rel="noopener noreferrer">Discord</a></li>
+      </ul>
     </section>
   </main>
 
-  <!-- Modal pour l'Aperçu de Projet (Multi-Images & Carrousel) -->
-  <div class="modal-backdrop" id="project-modal">
-    <div class="modal-card glass-panel">
-      <button class="modal-close" id="modal-close-btn" aria-label="Fermer"><i class="ri-close-line"></i></button>
-      
-      <div class="modal-img-container" id="modal-img-wrapper">
-        <img src="" alt="Aperçu du projet" id="modal-img" />
-        <button class="modal-zoom-btn" id="modal-zoom-btn" title="Agrandir / Plein écran"><i class="ri-zoom-in-line"></i></button>
-        <button class="modal-slider-btn prev" id="modal-prev-btn" aria-label="Image précédente"><i class="ri-arrow-left-s-line"></i></button>
-        <button class="modal-slider-btn next" id="modal-next-btn" aria-label="Image suivante"><i class="ri-arrow-right-s-line"></i></button>
-        <span class="modal-counter" id="modal-counter">1 / 1</span>
-      </div>
-
-      <div class="modal-thumbnails" id="modal-thumbnails"></div>
-
-      <div class="modal-content">
-        <span class="modal-tag" id="modal-tag">Web Fullstack</span>
-        <h3 class="modal-title" id="modal-title">Titre du Projet</h3>
-        <p class="modal-desc" id="modal-desc">Description complète du projet...</p>
-        <div class="modal-tech" id="modal-tech"></div>
-        <div class="modal-actions">
-          <a href="#" id="modal-github" target="_blank" rel="noopener noreferrer" class="btn btn-glass btn-sm">
-            <i class="ri-github-line"></i> Code GitHub
-          </a>
-          <a href="#" id="modal-demo" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm">
-            <i class="ri-external-link-line"></i> Voir le projet
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Toast Notification (Copie Email) -->
-  <div class="toast" id="toast">
-    <i class="ri-checkbox-circle-fill"></i>
-    <span id="toast-message">Email copié dans le presse-papier !</span>
-  </div>
-
-  <!-- Footer -->
-  <footer class="footer">
-    <div class="container footer-container">
-      <div class="footer-left">
-        <span class="footer-logo">Andrei Vartiuc</span>
-        <p>© 2026 Andrei Vartiuc - Étudiant Ingénieur EPITA.</p>
-      </div>
-      <div class="footer-right">
-        <a href="#hero" class="back-to-top" aria-label="Haut de page"><i class="ri-arrow-up-line"></i></a>
-      </div>
-    </div>
+  <footer class="site-footer">
+    <span>© 2026 Andrei Vartiuc</span>
+    <a href="#top">Haut de page</a>
   </footer>
 
-  <!-- Scripts -->
-  <script src="js/canvas-bg.js"></script>
+  <div class="modal" id="project-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" hidden>
+    <div class="modal-card">
+      <button class="modal-close" id="modal-close-btn" aria-label="Fermer">Fermer</button>
+      <div class="modal-media">
+        <img src="" alt="" id="modal-img" />
+        <button class="modal-nav prev" id="modal-prev-btn" aria-label="Image précédente">‹</button>
+        <button class="modal-nav next" id="modal-next-btn" aria-label="Image suivante">›</button>
+        <span class="modal-counter" id="modal-counter"></span>
+      </div>
+      <div class="modal-thumbs" id="modal-thumbnails"></div>
+      <div class="modal-body">
+        <h3 id="modal-title"></h3>
+        <p id="modal-desc"></p>
+        <p class="card-tags" id="modal-tech"></p>
+        <p class="modal-actions">
+          <a href="#" id="modal-github" target="_blank" rel="noopener noreferrer" class="btn btn-solid">Code sur GitHub</a>
+          <a href="#" id="modal-demo" target="_blank" rel="noopener noreferrer" class="btn btn-solid">Voir le projet</a>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" role="status"></div>
+
   <script src="js/main.js"></script>
 </body>
 </html>
